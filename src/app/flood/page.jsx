@@ -8,7 +8,7 @@ export default function flood() {
       {/* Navigation Bar */}
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-blue-700">DisasterPrep</h1>
+          <h1 className="text-2xl font-bold text-blue-700">ResQLearn</h1>
           <nav className="space-x-6 font-medium">
             <a href="#" className="text-gray-700 hover:text-blue-700">Home</a>
             <a href="#" className="text-gray-700 hover:text-blue-700">Courses</a>

@@ -3,7 +3,7 @@ export default function earthquake() {
     <main className="min-h-screen bg-gray-100 text-gray-800">
       {/* Navbar */}
       <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-blue-700">DisasterPrep</h1>
+        <h1 className="text-2xl font-bold text-blue-700">ResQLearn</h1>
         <ul className="flex gap-6 font-medium">
           <li className="hover:text-blue-700 cursor-pointer">Home</li>
           <li className="hover:text-blue-700 cursor-pointer">Courses</li>
