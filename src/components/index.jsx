@@ -1,5 +1,5 @@
 // pages/index.js
-import Navbar from '../components/Navbar';
+import Navbar from './Navbar';
 import About from './about';
 import Footer from './footer';
 

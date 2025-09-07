@@ -1,51 +1,4 @@
-// "use client";
-
-// import Image from "next/image";
-// import { useRouter } from "next/navigation";
-
-// export default function LandingPage() {
-//   const router = useRouter();
-
-//   return (
-
-//     <main className="flex items-center justify-center min-h-screen bg-blue-50">
-//       <div className="bg-white rounded-3xl shadow-lg p-10 flex items-center space-x-10 max-w-4xl">
-//       {/* <div className="bg-white rounded-3xl shadow-lg p-10 flex items-center space-x-12 max-w-6xl min-h-[500px]"> */}
-
-
-//         {/* Left Content */}
-//         <div className="flex-1">
-//           <h1 className="text-4xl font-bold text-blue-800 mb-4">
-//             Be Prepared for Tomorrow
-//           </h1>
-//           <p className="text-gray-600 mb-10">
-//             Providing disaster preparedness education for schools and colleges,
-//             our mission is to equip you with the knowledge and skills needed to
-//             respond to emergencies effectively.
-//           </p>
-//           <button
-//             onClick={() => router.push("/home")}
-//             className="bg-blue-600 text-white px-6 py-3 rounded-full shadow hover:bg-blue-700 transition"
-//           >
-//             Get Started
-//           </button>
-//         </div>
-
-//         {/* Right Image */}
-//         <div className="flex-1">
-//           <Image
-//             src="/PICTURE.png" // put your image in /public folder
-//             alt="Preparedness"
-//             width={400}
-//             height={400}
-//           />
-//         </div>
-//       </div>
-//     </main>
-//   );
-// }
 import Image from "next/image";
-
 export default function Home() {
   return (
     <div
@@ -57,7 +10,7 @@ export default function Home() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      {/* Navbar */}
+      {/* Navbar
       <nav className="w-full max-w-6xl bg-gray-900 bg-opacity-70 text-white rounded-xl px-6 py-4 flex justify-between items-center shadow-lg">
         <h1 className="text-2xl font-bold">ResQLearn</h1>
         <ul className="flex space-x-6 font-medium">
@@ -73,7 +26,7 @@ export default function Home() {
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
 
       {/* Container with margin + adjusted width/height */}
       <div className="bg-gray-900 bg-opacity-70 w-full max-w-6xl rounded-2xl p-10 mt-10 flex flex-col items-center shadow-2xl min-h-[75vh]">

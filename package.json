@@ -9,6 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "jose": "^6.1.0",
     "mongoose": "^8.18.0",
     "next": "^15.5.2",
     "react": "^19.1.0",

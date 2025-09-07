@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,15 +6,17 @@ export default function Navbar() {
   const router = useRouter();
   const [loggedIn, setLoggedIn] = useState(false);
 
-  // Update login state from localStorage
+  // ✅ Check login status
   const checkLoginStatus = () => {
     const status = localStorage.getItem("loggedIn");
     setLoggedIn(status === "true");
   };
 
-  // Check on mount and listen to changes (e.g., logout from another tab)
+  // ✅ Run on mount and listen for changes
   useEffect(() => {
     checkLoginStatus();
+
+    // Listen for storage changes
     window.addEventListener("storage", checkLoginStatus);
 
     return () => {
@@ -24,10 +24,15 @@ export default function Navbar() {
     };
   }, []);
 
-  // Handle logout
+  // ✅ Logout
   const handleLogout = () => {
     localStorage.removeItem("loggedIn");
+    localStorage.removeItem("user");
     setLoggedIn(false);
+
+    // Notify other components
+    window.dispatchEvent(new Event("storage"));
+
     router.push("/login");
   };
 
@@ -53,7 +58,10 @@ export default function Navbar() {
         {/* Auth Buttons */}
         {loggedIn ? (
           <>
-            <Link href="/profile" className="hover:text-blue-600 font-medium">
+            <Link
+              href="/profile"
+              className="hover:text-blue-600 font-medium"
+            >
               Profile
             </Link>
             <button
