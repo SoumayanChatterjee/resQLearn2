@@ -58,7 +58,7 @@ export default function Home() {
       }}
     >
       {/* Navbar */}
-      <nav className="w-full max-w-6xl bg-gray-900 bg-opacity-70 text-white rounded-xl px-6 py-4 flex justify-between items-center shadow-lg">
+      {/* <nav className="w-full max-w-6xl bg-gray-900 bg-opacity-70 text-white rounded-xl px-6 py-4 flex justify-between items-center shadow-lg">
         <h1 className="text-2xl font-bold">ResQLearn</h1>
         <ul className="flex space-x-6 font-medium">
           <li><a href="/" className="hover:text-blue-400">Home</a></li>
@@ -73,7 +73,7 @@ export default function Home() {
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
 
       {/* Container with margin + adjusted width/height */}
       <div className="bg-gray-900 bg-opacity-70 w-full max-w-6xl rounded-2xl p-10 mt-10 flex flex-col items-center shadow-2xl min-h-[75vh]">

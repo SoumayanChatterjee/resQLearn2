@@ -138,9 +138,26 @@
 "use client";
 import Image from "next/image";
 
+const emergencyCards = [
+  {
+    title: "Emergency Plans",
+    description: "Create and implement effective emergency plans for schools.",
+    icon: "📘",
+  },
+  {
+    title: "Safety Drills",
+    description: "Learn how to conduct safety drills and exercises.",
+    icon: "⛑️",
+  },
+  {
+    title: "Emergency Alerts",
+    description: "Receive alerts and notifications during emergencies.",
+    icon: "⚠️",
+  },
+];
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="full-screen bg-gray-100">
       {/* Navbar */}
       <nav className="absolute top-0 left-0 w-full flex justify-between items-center px-8 py-4 text-white z-20">
   <h1 className="text-2xl font-bold drop-shadow-lg">ResQLearn</h1>
@@ -166,7 +183,7 @@ export default function Home() {
 
       {/* Hero Section with Background */}
       <section
-        className="relative h-[550px] flex items-center justify-center bg-cover bg-center"
+        className="relative h-[600px] flex items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('/bg_stormrain.png')" }} // place your background in public/
       >
         {/* Overlay */}
@@ -200,8 +217,118 @@ export default function Home() {
         </div>
       </section>
 
+    {/* Emergency Plans / Drills / Alerts Section */}
+<section className="py-20 relative bg-gradient-to-b from-slate-900 to-slate-800">
+  <div className="max-w-6xl mx-auto px-6 text-center">
+    {/* Heading */}
+    <h2 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 drop-shadow-lg">
+      Be Prepared, Stay Safe
+    </h2>
+    <p className="mt-4 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+      Empower students and educators with the right tools — from emergency
+      planning to hands-on safety drills and timely alerts. Together, we can
+      build resilience against disasters.
+    </p>
+
+    {/* Cards */}
+    <div className="mt-14 grid gap-10 md:grid-cols-3">
+      {emergencyCards.map((card, index) => (
+        <div
+          key={index}
+          className="bg-slate-700/80 backdrop-blur-md rounded-2xl p-10 shadow-xl
+                     flex flex-col items-center text-center border border-gray-700
+                     hover:scale-105 hover:shadow-2xl transition-all duration-300"
+        >
+          <div className="text-6xl mb-5">{card.icon}</div>
+          <h3 className="text-2xl font-bold text-white mb-3">{card.title}</h3>
+          <p className="text-gray-300 leading-relaxed">{card.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+      {/* How Our System Works */}
+<section className="py-20 relative bg-gradient-to-b bg-slate-300">
+  <div className="max-w-6xl mx-auto px-6 text-center">
+    {/* Heading */}
+    <h2 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text 
+bg-gradient-to-r from-gray-700 to-slate-900 drop-shadow-lg">
+  How Our System Works
+</h2>
+
+
+<p className="mt-4 text-lg text-gray-800 max-w-2xl mx-auto leading-relaxed">
+  ResQLearn makes disaster preparedness simple: Learn, Practice, and Respond with confidence.
+</p>
+
+    {/* Cards in 1 Row - 3 Columns */}
+    <div className="mt-14 grid md:grid-cols-3 gap-10">
+      {[
+        { img: "/learn4.png", title: "Learn", text: "Interactive courses, quizzes, and videos to build disaster awareness." },
+        { img: "/practice2.png", title: "Practice", text: "Participate in safety drills and simulations to be prepared." },
+        { img: "/apply2.png", title: "Apply", text: "Watch media to see best practices." },
+      ].map((item, index) => (
+        <div
+          key={index}
+          className="bg-slate-800/80 backdrop-blur-md rounded-2xl p-8 shadow-lg 
+                     flex flex-col items-center text-center hover:scale-105 
+                     transition duration-300"
+        >
+          {/* Image at top */}
+          <Image
+            src={item.img}
+            alt={item.title}
+            width={200}
+            height={200}
+            className="rounded-lg mb-6"
+          />
+
+          {/* Text below */}
+          <h3 className="text-2xl font-bold text-white">{item.title}</h3>
+          <p className="mt-3 text-gray-300">{item.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+       {/* Testimonials */}
+       <section className="py-20 px-10 bg-slate-300">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-center text-gray-900">
+          What Schools Are Saying
+        </h2>
+        <p className="mt-4 text-center text-gray-600 max-w-2xl mx-auto">
+          Educators and students trust ResQLearn to make disaster preparedness engaging and impactful.
+        </p>
+
+        <div className="mt-12 grid md:grid-cols-3 gap-10">
+          <div className="bg-gray-50 shadow-md rounded-2xl p-8">
+            <p className="text-gray-700 italic">
+              “Our school conducted its first earthquake drill with ResQLearn’s guidance – students were more confident and better prepared.”
+            </p>
+            <h4 className="mt-4 font-semibold text-gray-900">– Principal, XYZ School</h4>
+          </div>
+          <div className="bg-gray-50 shadow-md rounded-2xl p-8">
+            <p className="text-gray-700 italic">
+              “The interactive quizzes made disaster awareness fun and engaging for our students.”
+            </p>
+            <h4 className="mt-4 font-semibold text-gray-900">– Teacher, ABC College</h4>
+          </div>
+          <div className="bg-gray-50 shadow-md rounded-2xl p-8">
+            <p className="text-gray-700 italic">
+              “ResQLearn gives us peace of mind knowing our staff and students are trained to handle emergencies.”
+            </p>
+            <h4 className="mt-4 font-semibold text-gray-900">– Administrator, DEF Institute</h4>
+          </div>
+        </div>
+      </section>
+    {/* </main>
+  );
+} */}
+
+
       {/* Explore Disasters Section */}
-      <section className="bg-gray-100 text-gray-900 py-16 px-10">
+      <section className="bg-slate-300 text-gray-900 py-16 px-10">
         <h3 className="text-2xl font-bold text-center mb-10">Explore the Disasters</h3>
         <div className="grid md:grid-cols-3 gap-10">
           {/* Earthquake */}
