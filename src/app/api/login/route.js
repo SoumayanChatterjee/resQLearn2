@@ -4,36 +4,31 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
-const JWT_SECRET = process.env.JWT_SECRET || "supersecret"; // ⚠ put in .env
+const JWT_SECRET = process.env.JWT_SECRET || "supersecret";
 
 export async function POST(req) {
-  await dbConnect();
-  const { email, password } = await req.json();
+  try {
+    await dbConnect();
+    const { email, password } = await req.json();
 
-  const user = await User.findOne({ email });
-  if (!user) {
-    return NextResponse.json({ success: false, message: "User not found" }, { status: 400 });
+    const user = await User.findOne({ email });
+    if (!user) return NextResponse.json({ success: false, error: "User not found" }, { status: 404 });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return NextResponse.json({ success: false, error: "Invalid credentials" }, { status: 401 });
+
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "7d" });
+
+    const response = NextResponse.json({
+      success: true,
+      user: { id: user._id, name: user.name, email: user.email, role: user.role, school: user.school }
+    });
+
+    response.cookies.set("token", token, { httpOnly: true, secure: false, path: "/" });
+    return response;
+
+  } catch (err) {
+    console.error("Login error:", err);
+    return NextResponse.json({ success: false, error: "Internal server error" }, { status: 500 });
   }
-
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    return NextResponse.json({ success: false, message: "Invalid credentials" }, { status: 400 });
-  }
-
-  // ✅ Generate JWT
-  const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "7d" });
-
-  // ✅ Set HTTP-only cookie
-  const res = NextResponse.json({
-    success: true,
-    message: "Login successful",
-  });
-  res.cookies.set("token", token, {
-    httpOnly: true,
-    sameSite: "strict",
-    maxAge: 7 * 24 * 60 * 60, // 7 days
-    path: "/",
-  });
-
-  return res;
 }

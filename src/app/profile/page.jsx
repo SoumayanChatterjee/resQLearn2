@@ -1,82 +1,49 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { FaEnvelope, FaGraduationCap, FaCalendarAlt } from "react-icons/fa";
 
 export default function ProfilePage() {
-  const router = useRouter();
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch("/api/profile", { cache: "no-store" });
+        const res = await fetch("/api/profile");
         const data = await res.json();
-
-        if (!data.success) {
-          router.push("/login");
-        } else {
-          setUser(data.user);
-        }
-      } catch (err) {
-        console.error("Error fetching profile:", err);
-        router.push("/login");
-      } finally {
-        setLoading(false);
+        if (data.success) setUser(data.user);
+        else setError(data.error || "Failed to load profile");
+      } catch {
+        setError("Something went wrong");
       }
     };
-
     fetchProfile();
-  }, [router]);
+  }, []);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-slate-900 text-white">
-        <p>Loading profile...</p>
-      </div>
-    );
-  }
-
-  if (!user) return null;
+  if (error) return <p className="text-red-500 text-center mt-10">{error}</p>;
+  if (!user) return <p className="text-center mt-10">Loading profile...</p>;
 
   return (
     <div className="min-h-[100vh] flex flex-col bg-gradient-to-b from-slate-200 via-slate-300 to-slate-200 text-white">
-      {/* Navbar */}
       <nav className="absolute top-0 left-0 w-full flex justify-between items-center px-8 py-4 text-white z-20 bg-slate-900">
         <h1 className="text-2xl font-bold drop-shadow-lg">ResQLearn</h1>
         <ul className="flex space-x-10">
-          <li><a href="/home" className="hover:text-blue-400 drop-shadow-lg">Home</a></li>
-          <li><a href="#about" className="hover:text-blue-400 drop-shadow-lg">About Us</a></li>
-          <li><a href="/contact" className="hover:text-blue-400 drop-shadow-lg">Contact</a></li>
-          <li>
-            <button
-              onClick={async () => {
-                await fetch("/api/logout", { method: "POST" });
-                router.push("/login");
-              }}
-              className="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500 shadow-lg"
-            >
-              Logout
-            </button>
-          </li>
-          <li>
-            <a href="/profile" className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-200 shadow-lg">Profile</a>
-          </li>
+          <li><a href="/home" className="hover:text-blue-400">Home</a></li>
+          <li><a href="/contact" className="hover:text-blue-400">Contact</a></li>
+          <li><a href="/login" className="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500">Logout</a></li>
+          <li><a href="/profile" className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-200">Profile</a></li>
         </ul>
       </nav>
 
-      {/* Profile Header */}
       <div className="mt-10">
         <nav className="w-full bg-slate-800 flex items-center px-10 py-10 shadow-md">
-          <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white text-5xl font-bold uppercase mr-8 select-none">
+          <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white text-5xl font-bold uppercase mr-8">
             {user.name.charAt(0)}
           </div>
           <h1 className="text-6xl font-extrabold">Welcome back, {user.name}</h1>
         </nav>
       </div>
 
-      {/* User Info Section */}
       <div className="max-w-[50rem] w-full mx-auto px-8 py-14 bg-[#1e293b] border border-[#334155] rounded-xl shadow-md mt-24 space-y-10 min-h-[400px]">
         <InfoRow icon={<FaEnvelope />} label="Email" value={user.email} />
         <InfoRow icon={<FaGraduationCap />} label="School/College" value={user.school} />
