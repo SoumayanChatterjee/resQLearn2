@@ -7,17 +7,17 @@ export default function EmergencyKitQuiz() {
 
   const questions = [
     {
-      question: "Which of these is essential in an emergency kit?",
+      q: "Which of these is essential in an emergency kit?",
       options: ["Flashlight", "Video Game", "Perfume", "Sunglasses"],
       answer: "Flashlight",
     },
     {
-      question: "How much water should you store per person per day?",
+      q: "How much water should you store per person per day?",
       options: ["1 liter", "2 liters", "4 liters", "10 liters"],
       answer: "4 liters",
     },
     {
-      question: "What kind of radio is recommended for emergencies?",
+      q: "What kind of radio is recommended for emergencies?",
       options: [
         "AM/FM battery-powered or hand-crank radio",
         "Internet radio",
@@ -27,12 +27,12 @@ export default function EmergencyKitQuiz() {
       answer: "AM/FM battery-powered or hand-crank radio",
     },
     {
-      question: "Which of these items should be included in a first aid kit?",
+      q: "Which of these items should be included in a first aid kit?",
       options: ["Bandages", "Makeup kit", "Hairdryer", "Wallet"],
       answer: "Bandages",
     },
     {
-      question: "Why is it important to have extra batteries?",
+      q: "Why is it important to have extra batteries?",
       options: [
         "To keep your flashlight and radio working",
         "To play video games",
@@ -60,66 +60,88 @@ export default function EmergencyKitQuiz() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-100 text-gray-800 p-6">
-      <h1 className="text-3xl font-bold mb-6">Emergency Kit Quiz</h1>
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {questions.map((q, i) => (
-          <fieldset key={i} className="bg-white p-4 rounded-lg shadow">
-            <legend className="font-semibold mb-2">
-              {i + 1}. {q.question}
-            </legend>
-            {q.options.map((option, j) => {
-              const isSubmitted = score !== null;
-              const userAnswer = userAnswers[i];
-              const isCorrect = option === q.answer;
-              const isUserChoice = option === userAnswer;
+    <main className="min-h-screen bg-slate-100 text-gray-800">
+      {/* Header section */}
+      <div className="bg-slate-800 py-8 text-center">
+        <h1 className="text-3xl font-bold flex items-center justify-center gap-2 text-slate-100">
+          🧰 Emergency Kit Quiz
+        </h1>
+        <p className="text-gray-200 font-medium mt-2">
+          Test your knowledge on what to include in an emergency preparedness kit.
+        </p>
+      </div>
 
-              let optionClass = "block mb-1 px-2 py-1 rounded ";
-              if (isSubmitted) {
-                if (isCorrect) {
-                  optionClass += "bg-green-100 text-green-700 font-semibold";
-                } else if (isUserChoice && !isCorrect) {
-                  optionClass += "bg-red-100 text-red-700 font-semibold";
-                }
-              }
+      {/* Quiz content */}
+      <div className="max-w-3xl mx-auto px-4 py-10">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {questions.map((q, i) => (
+            <fieldset
+              key={i}
+              className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition"
+            >
+              <h2 className="text-lg font-semibold mb-4">
+                {i + 1}. {q.q}
+              </h2>
+              <div className="space-y-2">
+                {q.options.map((opt) => {
+                  const isSubmitted = score !== null;
+                  const userAnswer = userAnswers[i];
+                  const isCorrect = opt === q.answer;
+                  const isUserChoice = opt === userAnswer;
 
-              return (
-                <label key={j} className={optionClass}>
-                  <input
-                    type="radio"
-                    name={`q${i}`}
-                    value={option}
-                    className="mr-2"
-                    required
-                    disabled={isSubmitted} // disable after submission
-                  />
-                  {option}
-                  {isSubmitted &&
-                    isUserChoice &&
-                    !isCorrect && (
-                      <span className="ml-2 text-sm text-gray-600">
-                        (Correct: {q.answer})
-                      </span>
-                    )}
-                </label>
-              );
-            })}
-          </fieldset>
-        ))}
+                  let optionClass =
+                    "block mb-1 px-3 py-2 rounded cursor-pointer transition ";
+                  if (isSubmitted) {
+                    if (isCorrect) {
+                      optionClass +=
+                        "bg-green-100 text-green-700 font-semibold";
+                    } else if (isUserChoice && !isCorrect) {
+                      optionClass +=
+                        "bg-red-100 text-red-700 font-semibold";
+                    } else {
+                      optionClass += "hover:bg-gray-100";
+                    }
+                  } else {
+                    optionClass += "hover:bg-gray-100";
+                  }
 
-        {score === null ? (
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-          >
-            Submit
-          </button>
-        ) : (
-          <div className="mt-6 text-xl font-semibold text-center">
-            ✅ You scored {score} out of {questions.length}
-          </div>
-        )}
-      </form>
+                  return (
+                    <label key={opt} className={optionClass}>
+                      <input
+                        type="radio"
+                        name={`q${i}`}
+                        value={opt}
+                        className="mr-2 accent-indigo-600"
+                        required
+                        disabled={isSubmitted}
+                      />
+                      {opt}
+                      {isSubmitted && isUserChoice && !isCorrect && (
+                        <span className="ml-2 text-sm text-gray-600">
+                          (Correct: {q.answer})
+                        </span>
+                      )}
+                    </label>
+                  );
+                })}
+              </div>
+            </fieldset>
+          ))}
+
+          {score === null ? (
+            <button
+              type="submit"
+              className="block mx-auto bg-indigo-600 text-white px-6 py-2 rounded shadow hover:bg-indigo-700 transition"
+            >
+              Submit
+            </button>
+          ) : (
+            <p className="mt-8 font-extrabold text-3xl text-center">
+              ✅ Your Score: {score}/{questions.length}
+            </p>
+          )}
+        </form>
+      </div>
     </main>
   );
 }

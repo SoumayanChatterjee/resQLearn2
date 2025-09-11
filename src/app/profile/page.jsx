@@ -29,6 +29,7 @@ export default function ProfilePage() {
         <h1 className="text-2xl font-bold drop-shadow-lg">ResQLearn</h1>
         <ul className="flex space-x-10">
           <li><a href="/home" className="hover:text-blue-400">Home</a></li>
+          <li><a href="/about" className="hover:text-blue-400">About Us</a></li>
           <li><a href="/contact" className="hover:text-blue-400">Contact</a></li>
           <li><a href="/login" className="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500">Logout</a></li>
           <li><a href="/profile" className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-200">Profile</a></li>
